@@ -1,5 +1,5 @@
 class LinkedList {
-    head: LinkedListNode | null;
+    head: LinkedListNode | null | undefined;
     length: number;
 
     constructor() {
@@ -25,7 +25,7 @@ class LinkedList {
         this.length++; 
     }
 
-    insertAtIndex(value:any, index:number) {
+    insertAtIndex(index: number, value: any) {
         if (index > this.length - 1) return 'error';
         if (index < 0) return 'error';
         if (this.length < 1) return 'error';
@@ -57,6 +57,32 @@ class LinkedList {
         }
     }
 
+    removeAtIndex(index:number) {
+        if (index < 0) return 'error';
+        if (index >= this.length) return 'error';
+
+        if(index === 0) {
+            const currentHead = this.head;
+            this.head = currentHead?.next;
+            this.length--;
+        } else if (index > 0) {
+            let currentNode = this.getByIndex(index);
+            let prevNode = this.getByIndex(index - 1);
+
+            if (currentNode && prevNode) {
+                prevNode.next = currentNode.next;
+                this.length--;
+            }
+        } else if (index === this.length - 1) {
+            let prevNode = this.getByIndex(index - 1);
+            
+            if(prevNode) {
+                prevNode.next = null;
+                this.length--;
+            }
+        }
+    }
+
     fromValues(...values: number[]) {
         for (let i = values.length - 1; i >= 0; i-- ) {
             this.insertAtHead(values[i]);
@@ -78,9 +104,9 @@ class LinkedList {
 
 class LinkedListNode {
     value: any;
-    next: LinkedListNode | null;
+    next: LinkedListNode | null | undefined;
 
-    constructor(value: any, next: LinkedListNode | null) {
+    constructor(value: any, next: LinkedListNode | null | undefined) {
         this.value = value;
         this.next = next;
     }

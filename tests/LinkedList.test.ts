@@ -15,7 +15,7 @@ describe('#insertAtHead', () => {
 })
 
 describe('#getByIndex', () => {
-    describe('With index less than 0', () => {
+    describe('with index less than 0', () => {
         it('returns null', () => {
             const linkedList = new LinkedList;
             linkedList.fromValues(10, 20);
@@ -23,7 +23,7 @@ describe('#getByIndex', () => {
         })
     })
 
-    describe('With index greater than the length', () => {
+    describe('with index greater than the length', () => {
         it('returns null', () => {
             const linkedList = new LinkedList;
             linkedList.fromValues(10, 20);
@@ -31,7 +31,7 @@ describe('#getByIndex', () => {
         })
     })
 
-    describe('With the 0 zero index', () => {
+    describe('with the 0 zero index', () => {
         it('returns the value at head', () => {
             const linkedList = new LinkedList;
             linkedList.fromValues(10, 20);
@@ -39,7 +39,7 @@ describe('#getByIndex', () => {
         })
     })
 
-    describe('With the any index', () => {
+    describe('with the any index', () => {
         it('returns the value at that index', () => {
             const linkedList = new LinkedList;
             linkedList.fromValues(10, 20, 30, 40);
@@ -48,19 +48,101 @@ describe('#getByIndex', () => {
     })
 })
 
-describe('insertAtIndex', () => {
-    it('inserts a node between other ones', () => {
-        const linkedList = new LinkedList;
-        linkedList.fromValues(10, 20, 30);
-        linkedList.insertAtIndex(15, 1);
-        expect(linkedList.getByIndex(1)?.value).toBe(15);
+describe('#insertAtIndex', () => {
+    describe('with index less than 0', () => {
+        it('it does not insert anything', () => {  
+            const linkedList = new LinkedList;
+            linkedList.fromValues(10, 20)
+            linkedList.insertAtIndex(-1, 30);
+            expect(linkedList.length).toBe(2);
+        })
     })
 
-    it('inserts a node at the end', () => {
-        const linkedList = new LinkedList;
-        linkedList.fromValues(10, 20, 30);
-        linkedList.insertAtIndex(35, 2)
-        expect(linkedList.getByIndex(3)?.value).toBe(35);
+    describe('with index greather that the list length', () => {
+        it('it does not insert anything', () => {  
+            const linkedList = new LinkedList;
+            linkedList.fromValues(10, 20)
+            linkedList.insertAtIndex(30, 5);
+            expect(linkedList.length).toBe(2);
+        })
+    
+    })
+
+    describe('with index 0', () => {
+        it('insert at the head', () => {
+            const linkedList = new LinkedList;
+            linkedList.fromValues(10, 20)
+            linkedList.insertAtIndex(0, 30);
+            expect(linkedList.head?.value).toBe(30);
+            expect(linkedList.head?.next?.value).toBe(10);
+            expect(linkedList.length).toBe(3);
+        })
+    })
+
+    describe('with index in the middle', () => {
+        it('inserts at a given index', () => {
+            const linkedList = new LinkedList;
+            linkedList.fromValues(10, 20, 30, 40);
+            linkedList.insertAtIndex(2, 50);
+            const node = linkedList.getByIndex(2);
+            expect(node?.value).toBe(50);
+            expect(node?.next?.value).toBe(30);
+            expect(linkedList.length).toBe(5);
+        })
+    })   
+})
+
+describe('#removeAtIndex', () => {
+    describe('with index 0', () => {
+        it('removes at the index 0', () => {
+            const linkedList = new LinkedList;
+            linkedList.fromValues(10, 20, 30, 40);
+            linkedList.removeAtIndex(0);
+            expect(linkedList.head?.value).toBe(20);
+            expect(linkedList.length).toBe(3);
+            expect(linkedList.head?.next?.value).toBe(30);
+        })
+    })
+    
+    describe('with last index', () => {
+        it('removes at the last index', () => {
+            const linkedList = new LinkedList;
+            linkedList.fromValues(10, 20, 30, 40);
+            linkedList.removeAtIndex(3);
+            expect(linkedList.length).toBe(3);
+            expect(linkedList.getByIndex(3)).toBeNull;    
+        })
+    })
+    
+    describe('with any index', () => {
+        it('removes at a given index', () => {
+            const linkedList = new LinkedList;
+            linkedList.fromValues(10, 20, 30, 40);
+            linkedList.removeAtIndex(1);
+            expect(linkedList.getByIndex(1)?.value).toBe(30);
+            expect(linkedList.head?.next?.value).toBe(30);
+            expect(linkedList.length).toBe(3);
+        })
+    })
+
+    describe('with index greater than the length', () => {
+        it('does not remove anything', () => {
+            const linkedList = new LinkedList;
+            linkedList.fromValues(10, 20, 30, 40);
+            linkedList.removeAtIndex(10);
+            expect(linkedList.head?.value).toBe(10);
+            expect(linkedList.length).toBe(4);
+        })
+    })
+
+    describe('with index less than 0', () => {
+        it('does not remove anything', () => {
+            const linkedList = new LinkedList;
+            linkedList.fromValues(10, 20, 30, 40);
+            linkedList.removeAtIndex(-1);
+            expect(linkedList.head?.value).toBe(10);
+            expect(linkedList.length).toBe(4);
+        })
     })
 })
 
