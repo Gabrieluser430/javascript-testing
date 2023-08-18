@@ -48,4 +48,22 @@ describe('#getByIndex', () => {
     })
 })
 
+describe('insertAtIndex', () => {
+    it('inserts a node between other ones', () => {
+        const linkedList = new LinkedList;
+        linkedList.fromValues(10, 20, 30);
+        linkedList.insertAtIndex(15, 1);
+        expect(linkedList.getByIndex(1)?.value).toBe(15);
+    })
+
+    it('inserts a node at the end', () => {
+        const linkedList = new LinkedList;
+        linkedList.fromValues(10, 20, 30);
+        linkedList.insertAtIndex(35, 2)
+        expect(linkedList.getByIndex(3)?.value).toBe(35);
+    })
+})
+
+
+
 
