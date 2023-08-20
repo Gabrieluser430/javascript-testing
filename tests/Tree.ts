@@ -23,7 +23,7 @@ class Tree {
 
     insertRecursively(currentNode:TreeNode, value) {
 
-        if (value < currentNode) {
+        if (value < currentNode.value) {
             if(currentNode.left === null) {
                 currentNode.left = new TreeNode(value);
             } else {
@@ -35,6 +35,27 @@ class Tree {
             } else {
                 this.insertRecursively(currentNode.right, value);
             }
+        }
+    }
+
+    search(target:any) {
+        if (this.size === 0) return false;
+
+        const currentNode = this.root;
+        return this.searchRecursively(currentNode, target);
+    }
+
+    searchRecursively(currentNode, target) {
+        if (currentNode === null) {
+            return false;
+        }  
+
+        if(currentNode?.value === target) {
+            return true;
+        } else if(currentNode?.value > target) {
+            return this.searchRecursively(currentNode?.left, target);
+        } else if(currentNode?.value < target) {
+            return this.searchRecursively(currentNode?.right, target);
         }
     }
 }

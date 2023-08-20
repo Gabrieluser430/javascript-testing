@@ -34,3 +34,32 @@ describe('#insert', () => {
         })
     })
 })
+
+describe('#search', () => {
+    describe('with a value that is not in the tree', () => { 
+        it('returns false', () => {
+            const tree = new Tree;
+            tree.insert(5);
+            tree.insert(7);
+            tree.insert(3);
+            expect(tree.search(9)).toBe(false);
+        })
+    })
+
+    describe('with a value that is in the tree', () => {
+        it('returns true', () => {
+            const tree = new Tree;
+            tree.insert(5);
+            tree.insert(7);
+            tree.insert(3);
+            expect(tree.search(7)).toBe(true);
+        })
+    })
+
+    describe('with an empty tree', () => {
+        it('returns false', () => {
+            const tree = new Tree;
+            expect(tree.search(7)).toBe(false);
+        })
+    })
+})
