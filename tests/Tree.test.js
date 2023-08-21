@@ -63,3 +63,21 @@ describe('#search', () => {
         })
     })
 })
+
+
+describe('minValue', () => {
+    describe('with a non-empty tree', () => {
+        it('returns the minimum value', () => {
+            const tree = new Tree;
+            tree.insert(5)
+            tree.insert(3)
+            tree.insert(7)
+            tree.insert(9)
+            tree.insert(2)
+            tree.insert(1)
+            tree.insert(0)
+            tree.insert(-5)
+            expect(tree.minValue()).toBe(-5);
+        })
+    })
+})

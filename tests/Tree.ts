@@ -58,6 +58,22 @@ class Tree {
             return this.searchRecursively(currentNode?.right, target);
         }
     }
+
+    minValue() {
+        if (this.size === 0) return null;
+
+        let currentNode = this.root;
+        return this.minValueRecursively(currentNode);
+    }
+
+    minValueRecursively(currentNode: TreeNode | null | undefined) {
+        if (currentNode?.left === null) {
+            return currentNode?.value;
+        } else {
+            return this.minValueRecursively(currentNode?.left)
+        }
+    }
+    
 }
 
 class TreeNode {
